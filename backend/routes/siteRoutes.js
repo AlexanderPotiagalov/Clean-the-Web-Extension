@@ -2,12 +2,77 @@ const express = require("express");
 const router = express.Router();
 const Site = require("../models/Site");
 
+const https = require("https");
+
+async function checkSSL(domain) {
+  return new Promise((resolve) => {
+    const options = {
+      hostname: domain,
+      method: "GET",
+      port: 443,
+      timeout: 3000,
+    };
+
+    const req = https.request(options, (res) => {
+      resolve(true);
+    });
+
+    req.on("error", (e) => {
+      resolve(false);
+    });
+
+    req.end();
+  });
+}
+
+const axios = require("axios");
+
+async function checkDomainAge(domain) {
+  try {
+    const apiKey = process.env.WHOIS_API_KEY;
+    const response = await axios.get(
+      `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${apiKey}&domainName=${domain}&outputFormat=JSON`
+    );
+
+    const createdDate = new Date(
+      response.data.WhoisRecord.createdDateNormalized
+    );
+    const today = new Date();
+
+    const monthsDifference =
+      (today.getFullYear() - createdDate.getFullYear()) * 12 +
+      (today.getMonth() - createdDate.getMonth());
+
+    return monthsDifference;
+  } catch (error) {
+    console.error("Error checking domain age:", error.message);
+    return 999;
+  }
+}
+
+const suspiciousKeywords = [
+  "login",
+  "verify",
+  "secure",
+  "account",
+  "bank",
+  "update",
+  "password",
+  "paypal",
+];
+
+function hasSuspiciousKeywords(domain) {
+  return suspiciousKeywords.some((keyword) =>
+    domain.toLowerCase().includes(keyword)
+  );
+}
+
 router.post("/reportSite", async (req, res) => {
   const { domain } = req.body;
 
   try {
     let site = await Site.findOne({ domain });
-    if (!site) {
+    if (site) {
       site.reports += 1;
       site.lastReported = Date.now();
       await site.save();
@@ -15,10 +80,12 @@ router.post("/reportSite", async (req, res) => {
       site = new Site({ domain });
       await site.save();
     }
-    res.status(200).json({ message: "Site reported successfully", site });
-  } catch (error) {
-    console.error("Error reporting site:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(200).json({ message: "✅ Site reported successfully" });
+  } catch (err) {
+    console.error("Error reporting site:", err);
+    res
+      .status(500)
+      .json({ message: "❌ Error reporting site", error: err.message });
   }
 });
 
@@ -26,17 +93,35 @@ router.get("/checkSite", async (req, res) => {
   const { domain } = req.query;
 
   try {
+    let trustScore = 100;
+
     const site = await Site.findOne({ domain });
-    if (!site) {
-      return res.status(200).json({ trustScore: 100, status: "Safe" });
+
+    // SSL Check
+    const ssl = await checkSSL(domain);
+    if (!ssl) trustScore -= 40;
+
+    // Domain Age Check
+    const monthsOld = await checkDomainAge(domain);
+    if (monthsOld < 6) trustScore -= 30;
+
+    // Suspicious Keywords Check
+    if (hasSuspiciousKeywords(domain)) trustScore -= 20;
+
+    // User Reports Check
+    if (site) {
+      trustScore -= site.reports * 10;
     }
 
-    let trustScore = 100 - site.reports * 10;
+    trustScore = Math.max(0, trustScore); // Don't allow negative trust score
+
     let status = "Safe";
     if (trustScore < 80) status = "Suspicious";
     if (trustScore < 50) status = "Scam";
+
     res.status(200).json({ trustScore, status });
   } catch (error) {
+    console.error("Error checking site:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 });
