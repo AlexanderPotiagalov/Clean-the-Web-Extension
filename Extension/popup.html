@@ -7,10 +7,36 @@
   </head>
   <body>
     <div class="popup-container">
-      <h1 class="title">Clean the Web</h1>
-      <p id="site-name" class="site-name">Loading current site...</p>
-      <p id="site-status" class="site-status">Checking site safety...</p>
-      <button id="report-btn" class="report-button">🚩 Report This Site</button>
+      <div class="header">
+        <div class="logo">CW</div>
+        <h1 class="title">Clean the Web</h1>
+      </div>
+
+      <div id="site-name" class="site-name">Loading...</div>
+
+      <div class="score-container">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle class="circle-bg" cx="70" cy="70" r="60"></circle>
+          <circle
+            id="score-circle"
+            class="circle unknown-color"
+            cx="70"
+            cy="70"
+            r="60"
+            stroke-dasharray="376.8"
+            stroke-dashoffset="376.8"
+          ></circle>
+        </svg>
+        <div id="percentage" class="percentage unknown-color">?</div>
+      </div>
+
+      <div id="status-text" class="status-text unknown-color">
+        Checking site safety...
+      </div>
+
+      <button id="report-btn" class="report-button">
+        <span class="flag-icon">🚩</span> Report This Site
+      </button>
     </div>
 
     <script src="popup.js"></script>
