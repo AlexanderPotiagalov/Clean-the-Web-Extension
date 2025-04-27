@@ -102,8 +102,25 @@ router.get("/checkSite", async (req, res) => {
     if (!ssl) trustScore -= 40;
 
     // Domain Age Check
-    const monthsOld = await checkDomainAge(domain);
-    if (monthsOld < 6) trustScore -= 30;
+    let monthsOld;
+    if (site && site.cachedDomainAge !== null) {
+      monthsOld = site.cachedDomainAge; // ✅ use cached age
+    } else {
+      monthsOld = await checkDomainAge(domain);
+      if (site) {
+        site.cachedDomainAge = monthsOld;
+        await site.save();
+      }
+    }
+
+    // Progressive penalty based on domain age
+    if (monthsOld < 1) {
+      trustScore -= 50;
+    } else if (monthsOld < 3) {
+      trustScore -= 40;
+    } else if (monthsOld < 6) {
+      trustScore -= 30;
+    }
 
     // Suspicious Keywords Check
     if (hasSuspiciousKeywords(domain)) trustScore -= 20;
