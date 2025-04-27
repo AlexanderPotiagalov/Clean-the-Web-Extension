@@ -1,13 +1,13 @@
 <div align="left">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="20%" align="left" style="margin-right: 15px"/>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px"/>
     <div style="display: inline-block;">
         <h2 style="display: inline-block; vertical-align: middle; margin-top: 0;">Clean The Web</h2>
         <p><em>Protecting users from phishing, scams, and shady websites — in real time.</em></p>
         <p>
-            <img src="https://img.shields.io/github/license/your-username/clean-the-web?style=flat-square&color=blueviolet" alt="license">
-            <img src="https://img.shields.io/github/last-commit/your-username/clean-the-web?style=flat-square&color=blueviolet" alt="last-commit">
-            <img src="https://img.shields.io/github/languages/top/your-username/clean-the-web?style=flat-square&color=blueviolet" alt="repo-top-language">
-            <img src="https://img.shields.io/github/languages/count/your-username/clean-the-web?style=flat-square&color=blueviolet" alt="repo-language-count">
+            <img src="https://img.shields.io/github/license/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="license">
+            <img src="https://img.shields.io/github/last-commit/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="last-commit">
+            <img src="https://img.shields.io/github/languages/top/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="repo-top-language">
+            <img src="https://img.shields.io/github/languages/count/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="repo-language-count">
         </p>
         <p>Built with:</p>
         <p>
@@ -124,3 +124,116 @@ The trustScore starts at **100** and is dynamically adjusted based on the follow
  /database
   └── MongoDB Atlas (Cloud database)
 ```
+
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+
+Before getting started with **Clean The Web**, ensure your environment meets the following:
+
+- **Programming Language:** JavaScript (Node.js)
+- **Package Manager:** npm
+- **Database:** MongoDB Atlas (or local MongoDB)
+- **Chrome Browser:** For extension testing
+
+### 🛠️ Installation
+
+Install **Clean The Web** using the following steps:
+
+**Build from source:**
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/AlexanderPotiagalov/clean-the-web
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd backend
+```
+
+3. Install backend dependencies:
+
+```bash
+npm install
+```
+
+4. Create a `.env` file:
+
+```bash
+MONGO_URI=your-mongodb-connection-string
+WHOIS_API_KEY=your-whoisxmlapi-key
+```
+
+5. Start the server:
+
+```bash
+npm run dev
+```
+
+✅ Server will run at:
+
+```bash
+http://localhost:5000
+```
+
+### 🧩 Chrome Extension Setup
+
+1. Open Chrome → Go to `chrome://extensions`
+2. Enable **Developer Mode** (top right)
+3. Click **Load Unpacked**
+4. Select the `/extension` folder
+5. 🎉 The extension is now active!
+
+## 🛣️ Future Roadmap
+
+|
+Feature
+|
+Status
+|
+|
+
+---
+
+## |
+
+|
+|
+🌐 Public Dashboard (Next.js)
+|
+Planned
+|
+|
+📊 Analytics on Most Reported Sites
+|
+Planned
+|
+|
+📧 Email Alerts for Emerging Scams
+|
+Planned
+|
+|
+🧠 AI-Based Text/Image Scam Detection
+|
+Planned
+|
+|
+🔒 SSL Authority Validation (Deep Trust)
+|
+Planned
+|
+|
+⚡ Extension Performance Optimization
+|
+Planned
+|
+
+## 🧑‍💻 Author
+
+Built with ❤️ by **Alexander Potiagalov**
+
+Protecting users from online scams, one website at a time.
