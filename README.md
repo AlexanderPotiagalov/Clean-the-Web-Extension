@@ -1,5 +1,5 @@
 <div align="left">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px"/>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px; margin-top: 20px"/>
     <div style="display: inline-block;">
         <h1 style="display: inline-block; vertical-align: middle; margin-top: 0;">Clean The Web</h1>
         <p><em>Protecting users from phishing, scams, and shady websites — in real time.</em></p>
