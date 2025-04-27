@@ -34,6 +34,14 @@ async function checkDomainAge(domain) {
       `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${apiKey}&domainName=${domain}&outputFormat=JSON`
     );
 
+    if (
+      !response.data.WhoisRecord ||
+      !response.data.WhoisRecord.createdDateNormalized
+    ) {
+      console.error(`Whois API missing creation date for domain: ${domain}`);
+      return { monthsDifference: 999, createdDate: null };
+    }
+
     const createdDate = new Date(
       response.data.WhoisRecord.createdDateNormalized
     );
@@ -43,10 +51,10 @@ async function checkDomainAge(domain) {
       (today.getFullYear() - createdDate.getFullYear()) * 12 +
       (today.getMonth() - createdDate.getMonth());
 
-    return monthsDifference;
+    return { monthsDifference, createdDate };
   } catch (error) {
     console.error("Error checking domain age:", error.message);
-    return 999;
+    return { monthsDifference: 999, createdDate: null };
   }
 }
 
@@ -102,24 +110,22 @@ router.get("/checkSite", async (req, res) => {
     if (!ssl) trustScore -= 40;
 
     // Domain Age Check
-    let monthsOld;
-    if (site && site.cachedDomainAge !== null) {
-      monthsOld = site.cachedDomainAge; // ✅ use cached age
-    } else {
-      monthsOld = await checkDomainAge(domain);
-      if (site) {
-        site.cachedDomainAge = monthsOld;
+    const { monthsDifference, createdDate } = await checkDomainAge(domain);
+
+    if (monthsDifference !== 999) {
+      if (monthsDifference < 1) {
+        trustScore -= 50;
+      } else if (monthsDifference < 3) {
+        trustScore -= 40;
+      } else if (monthsDifference < 6) {
+        trustScore -= 30;
+      }
+
+      // Save creation date if we got it
+      if (site && !site.domainCreatedAt && createdDate) {
+        site.domainCreatedAt = createdDate;
         await site.save();
       }
-    }
-
-    // Progressive penalty based on domain age
-    if (monthsOld < 1) {
-      trustScore -= 50;
-    } else if (monthsOld < 3) {
-      trustScore -= 40;
-    } else if (monthsOld < 6) {
-      trustScore -= 30;
     }
 
     // Suspicious Keywords Check

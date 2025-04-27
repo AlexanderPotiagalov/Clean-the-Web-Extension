@@ -4,25 +4,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     let url = new URL(tab.url);
     const domain = url.hostname;
 
-    document.getElementById("site-name").innerText = url.hostname;
+    document.getElementById("site-name").innerText = domain;
+    const statusElement = document.getElementById("site-status");
+
+    // Immediately show "Checking..."
+    statusElement.innerText = "⏳ Checking site safety...";
+    statusElement.style.color = "gray";
+
     const response = await fetch(
       `http://localhost:5000/api/checkSite?domain=${domain}`
     );
     const data = await response.json();
 
-    const statusElement = document.getElementById("site-status");
-    if (data.status === "Safe") {
-      statusElement.innerText = "✅ Site is Safe";
+    if (!data || !data.status) {
+      statusElement.innerText = "❓ Unable to verify site.";
+      statusElement.style.color = "gray";
+      return;
+    }
+
+    const { trustScore, status } = data;
+
+    if (status === "Safe") {
+      statusElement.innerText = `✅ Site is Safe (${trustScore}%)`;
       statusElement.style.color = "green";
-    } else if (data.status === "Suspicious") {
-      statusElement.innerText = "⚠️ Site looks Suspicious";
+    } else if (status === "Suspicious") {
+      statusElement.innerText = `⚠️ Site is Suspicious (${trustScore}%)`;
       statusElement.style.color = "orange";
-    } else if (data.status === "Scam") {
-      statusElement.innerText = "❌ Site is Reported as Scam!";
+    } else if (status === "Scam") {
+      statusElement.innerText = `❌ Site is Scam (${trustScore}%)`;
       statusElement.style.color = "red";
     }
 
-    // 🔥 Report button
+    // Report button
     document
       .getElementById("report-btn")
       .addEventListener("click", async () => {
