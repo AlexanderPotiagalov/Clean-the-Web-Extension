@@ -1,5 +1,5 @@
 <div align="left">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px margin-top: 10px"/>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px margin-top: 25px"/>
     <div style="display: inline-block;">
         <h1 style="display: inline-block; vertical-align: middle; margin-top: 0;">Clean The Web</h1>
         <p><em>Protecting users from phishing, scams, and shady websites — in real time.</em></p>
@@ -43,6 +43,16 @@
 **Clean The Web** is a modern cybersecurity Chrome extension and full-stack system that detects phishing, fake, and scam websites.
 
 It uses **real technical signals** like SSL certificates, domain age, suspicious keywords, and crowdsourced reports to determine a website’s **trust score** — giving users an instant, clear verdict on site safety.
+
+---
+
+## 📸 Extension Screenshots
+
+<div align="center">
+  <img src="trust.png" width="30%" style="border-radius: 12px; margin-right: 10px;"/>
+  <img src="suspicious.png" width="30%" style="border-radius: 12px; margin-right: 10px;"/>
+  <img src="scam.png" width="30%" style="border-radius: 12px;"/>
+</div>
 
 ---
 
@@ -190,7 +200,7 @@ http://localhost:5000
 ## Contributing
 
 - **💬 [Join the Discussions](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/discussions)**: Share your insights, provide feedback, or ask questions.
-- **🐛 [Report Issues](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/issues)**: Submit bugs found or log feature requests for the `wastewise` project.
+- **🐛 [Report Issues](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/issues)**: Submit bugs found or log feature requests.
 - **💡 [Submit Pull Requests](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
 
 ## 🧑‍💻 Author
