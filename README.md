@@ -1,13 +1,13 @@
 <div align="left">
-    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px"/>
+    <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-secure.svg" width="30%" align="left" style="margin-right: 15px margin-top: 10px"/>
     <div style="display: inline-block;">
-        <h2 style="display: inline-block; vertical-align: middle; margin-top: 0;">Clean The Web</h2>
+        <h1 style="display: inline-block; vertical-align: middle; margin-top: 0;">Clean The Web</h1>
         <p><em>Protecting users from phishing, scams, and shady websites — in real time.</em></p>
         <p>
-            <img src="https://img.shields.io/github/license/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="license">
-            <img src="https://img.shields.io/github/last-commit/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="last-commit">
-            <img src="https://img.shields.io/github/languages/top/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="repo-top-language">
-            <img src="https://img.shields.io/github/languages/count/AlexanderPotiagalov/clean-the-web?style=flat-square&color=blueviolet" alt="repo-language-count">
+            <img src="https://img.shields.io/github/license/AlexanderPotiagalov/Clean-the-Web-Extension?style=flat-square&color=blueviolet" alt="license">
+            <img src="https://img.shields.io/github/last-commit/AlexanderPotiagalov/Clean-the-Web-Extension?style=flat-square&color=blueviolet" alt="last-commit">
+            <img src="https://img.shields.io/github/languages/top/AlexanderPotiagalov/Clean-the-Web-Extension?style=flat-square&color=blueviolet" alt="repo-top-language">
+            <img src="https://img.shields.io/github/languages/count/AlexanderPotiagalov/Clean-the-Web-Extension?style=flat-square&color=blueviolet" alt="repo-language-count">
         </p>
         <p>Built with:</p>
         <p>
@@ -187,53 +187,14 @@ http://localhost:5000
 4. Select the `/extension` folder
 5. 🎉 The extension is now active!
 
-## 🛣️ Future Roadmap
+## Contributing
 
-|
-Feature
-|
-Status
-|
-|
-
----
-
-## |
-
-|
-|
-🌐 Public Dashboard (Next.js)
-|
-Planned
-|
-|
-📊 Analytics on Most Reported Sites
-|
-Planned
-|
-|
-📧 Email Alerts for Emerging Scams
-|
-Planned
-|
-|
-🧠 AI-Based Text/Image Scam Detection
-|
-Planned
-|
-|
-🔒 SSL Authority Validation (Deep Trust)
-|
-Planned
-|
-|
-⚡ Extension Performance Optimization
-|
-Planned
-|
+- **💬 [Join the Discussions](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/discussions)**: Share your insights, provide feedback, or ask questions.
+- **🐛 [Report Issues](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/issues)**: Submit bugs found or log feature requests for the `wastewise` project.
+- **💡 [Submit Pull Requests](https://github.com/AlexanderPotiagalov/Clean-the-Web-Extension/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
 
 ## 🧑‍💻 Author
 
-Built with ❤️ by **Alexander Potiagalov**
+Built by **Alexander Potiagalov**
 
 Protecting users from online scams, one website at a time.
