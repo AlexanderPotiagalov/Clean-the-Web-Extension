@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Clean the Web",
+  "version": "1.0",
+  "description": "Detect and report scam and phishing websites.",
+  "permissions": ["storage", "tabs", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/cleanweb16x16.png",
+      "32": "icons/cleanweb32x32.png",
+      "128": "icons/cleanweb128x128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "16": "icons/cleanweb16x16.png",
+    "32": "icons/cleanweb32x32.png",
+    "128": "icons/cleanweb128x128.png"
+  }
+}
