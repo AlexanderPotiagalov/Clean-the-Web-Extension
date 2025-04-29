@@ -53,7 +53,8 @@ It uses **real technical signals** like SSL certificates, domain age, suspicious
 <div align="center">
   <img src="trust.png" width="30%" style="border-radius: 12px; margin-right: 10px;"/>
   <img src="suspicious.png" width="30%" style="border-radius: 12px; margin-right: 10px;"/>
-  <img src="scam.png" width="30%" style="border-radius: 12px;"/>
+  <img src="nossl.png" width="30%" style="border-radius: 12px;"/>
+  <img src="googlesafebrowsing.png" width="30%" style="border-radius: 12px;"/>
 </div>
 
 ---
