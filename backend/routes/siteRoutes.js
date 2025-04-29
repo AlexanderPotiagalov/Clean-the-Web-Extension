@@ -129,12 +129,16 @@ router.get("/checkSite", async (req, res) => {
 
   try {
     let trustScore = 100;
+    const reasons = [];
 
     const site = await Site.findOne({ domain });
 
     // SSL Check
     const ssl = await checkSSL(domain);
-    if (!ssl) trustScore -= 40;
+    if (!ssl) {
+      trustScore -= 40;
+      reasons.push("No SSL certificate (–40)");
+    }
 
     // Domain Age Check
     const { monthsDifference, createdDate } = await checkDomainAge(domain);
@@ -142,10 +146,13 @@ router.get("/checkSite", async (req, res) => {
     if (monthsDifference !== 999) {
       if (monthsDifference < 1) {
         trustScore -= 50;
+        reasons.push(`Domain age is ${monthsDifference} month(s) (–50)`);
       } else if (monthsDifference < 3) {
         trustScore -= 40;
+        reasons.push(`Domain age is ${monthsDifference} month(s) (–40)`);
       } else if (monthsDifference < 6) {
         trustScore -= 30;
+        reasons.push(`Domain age is ${monthsDifference} months (–30)`);
       }
 
       // Save creation date if we got it
@@ -156,11 +163,16 @@ router.get("/checkSite", async (req, res) => {
     }
 
     // Suspicious Keywords Check
-    if (hasSuspiciousKeywords(domain)) trustScore -= 20;
+    if (hasSuspiciousKeywords(domain)) {
+      trustScore -= 20;
+      reasons.push("Found suspicious keyword in domain (–20)");
+    }
 
     // User Reports Check
     if (site) {
-      trustScore -= site.reports * 10;
+      const penalty = site.reports * 10;
+      trustScore -= penalty;
+      reasons.push(`${site.reports} user(s) reported (–${penalty})`);
     }
 
     // Google Safe Browsing Check
@@ -172,7 +184,10 @@ router.get("/checkSite", async (req, res) => {
     console.log("→ Checking SafeBrowsing for URL:", urlToCheck);
 
     const isUnsafe = await checkSafeBrowsing(urlToCheck);
-    if (isUnsafe) trustScore = 0;
+    if (isUnsafe) {
+      trustScore = 0;
+      reasons.push("Flagged by Google Safe Browsing (–100)");
+    }
 
     trustScore = Math.max(0, trustScore); // Don't allow negative trust score
 
@@ -180,7 +195,7 @@ router.get("/checkSite", async (req, res) => {
     if (trustScore < 80) status = "Suspicious";
     if (trustScore < 50) status = "Scam";
 
-    res.status(200).json({ trustScore, status });
+    res.status(200).json({ trustScore, status, reasons });
   } catch (error) {
     console.error("Error checking site:", error.message);
     res.status(500).json({ message: "Internal server error" });

@@ -34,7 +34,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    const { trustScore, status } = data;
+    const { trustScore, status, reasons } = data;
+    // render the bullet list
+    const reasonsList = document.getElementById("reasons-list");
+    reasonsList.innerHTML = ""; // clear old
+    reasons.forEach((msg) => {
+      const li = document.createElement("li");
+      li.innerText = msg;
+      reasonsList.appendChild(li);
+    });
 
     // Calculate circle fill based on percentage
     const circumference = 2 * Math.PI * 60; // r=60
