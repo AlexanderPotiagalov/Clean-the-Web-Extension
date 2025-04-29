@@ -140,7 +140,7 @@ The trustScore starts at **100** and is dynamically adjusted based on the follow
   │   └── siteRoutes.js
   ├── models/
   │   └── Site.js
-  ├── .env (Mongo URI + Whois API Key)
+  ├── .env (Mongo URI + Whois API Key + Google Safe Browsing API Key)
 
  /database
   └── MongoDB Atlas (Cloud database)
@@ -186,6 +186,7 @@ npm install
 ```bash
 MONGO_URI=your-mongodb-connection-string
 WHOIS_API_KEY=your-whoisxmlapi-key
+SAFE_BROWSING_API_KEY=your-safebrowsingapi-key
 ```
 
 5. Start the server:
