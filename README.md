@@ -51,7 +51,7 @@ It uses **real technical signals** like SSL certificates, domain age, suspicious
 ## 📸 Extension Screenshots
 
 <div align="center">
-  <img src="trust.png" width="23%" style="border-radius: 12px; margin-right: 10px;"/>
+  <img src="noissues.png" width="23%" style="border-radius: 12px; margin-right: 10px;"/>
   <img src="suspicious.png" width="23%" style="border-radius: 12px; margin-right: 10px;"/>
   <img src="nossl.png" width="23%" style="border-radius: 12px;"/>
   <img src="googlesafebrowsing.png" width="23%" style="border-radius: 12px;"/>
