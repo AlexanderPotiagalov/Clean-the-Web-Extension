@@ -18,7 +18,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     statusText.classList.add("loading-animation");
 
     const response = await fetch(
-      `http://localhost:5000/api/checkSite?domain=${domain}`
+      `http://localhost:5000/api/checkSite?domain=${encodeURIComponent(
+        domain
+      )}&fullUrl=${encodeURIComponent(tab.url)}`
     );
     const data = await response.json();
 

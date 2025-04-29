@@ -75,6 +75,33 @@ function hasSuspiciousKeywords(domain) {
   );
 }
 
+async function checkSafeBrowsing(rawUrl) {
+  const apiKey = process.env.SAFE_BROWSING_API_KEY;
+  const url = rawUrl.startsWith("http") ? rawUrl : `http://${rawUrl}`; // ensure scheme
+  const body = {
+    client: { clientId: "clean-the-web", clientVersion: "1.0.0" },
+    threatInfo: {
+      threatTypes: ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE"],
+      platformTypes: ["ANY_PLATFORM"],
+      threatEntryTypes: ["URL"],
+      threatEntries: [{ url }],
+    },
+  };
+  try {
+    const { data } = await axios.post(
+      `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`,
+      body,
+      { headers: { "Content-Type": "application/json" } }
+    );
+    console.log("SafeBrowsing result for", url, data);
+    return Array.isArray(data.matches) && data.matches.length > 0;
+  } catch (err) {
+    // if you get a 4xx/5xx, inspect err.response.data
+    console.error("Safe Browsing error:", err.response?.data || err.message);
+    return false;
+  }
+}
+
 router.post("/reportSite", async (req, res) => {
   const { domain } = req.body;
 
@@ -98,7 +125,7 @@ router.post("/reportSite", async (req, res) => {
 });
 
 router.get("/checkSite", async (req, res) => {
-  const { domain } = req.query;
+  const { domain, fullUrl } = req.query;
 
   try {
     let trustScore = 100;
@@ -135,6 +162,17 @@ router.get("/checkSite", async (req, res) => {
     if (site) {
       trustScore -= site.reports * 10;
     }
+
+    // Google Safe Browsing Check
+    const urlToCheck = fullUrl
+      ? fullUrl.startsWith("http")
+        ? fullUrl
+        : `http://${fullUrl}`
+      : `http://${domain}`;
+    console.log("→ Checking SafeBrowsing for URL:", urlToCheck);
+
+    const isUnsafe = await checkSafeBrowsing(urlToCheck);
+    if (isUnsafe) trustScore = 0;
 
     trustScore = Math.max(0, trustScore); // Don't allow negative trust score
 
