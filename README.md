@@ -17,6 +17,8 @@
             <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white" alt="MongoDB">
             <img src="https://img.shields.io/badge/Chrome%20Extension-4285F4?style=flat-square&logo=googlechrome&logoColor=white" alt="Chrome Extension">
             <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" alt="Axios">
+            <img src="https://img.shields.io/badge/Google%20Safe%20Browsing%20API-4285F4?style=flat-square&logo=google&logoColor=white" alt="Google Safe Browsing API">
+            <img src="https://img.shields.io/badge/WhoisXML%20API-0099FF?style=flat-square" alt="WhoisXML API">
         </p>
     </div>
 </div>
@@ -33,7 +35,7 @@
 - [🎯 Trust Score Calculation](#-trust-score-calculation)
 - [📂 Project Structure](#-project-structure)
 - [🚀 Getting Started](#-getting-started)
-  
+
 </details>
 
 ---
@@ -64,6 +66,7 @@ It uses **real technical signals** like SSL certificates, domain age, suspicious
 | 🧠  |     **Smart Trust Score**     | Based on SSL, domain age, suspicious keywords, and user reports   |
 | 📈  | **Trust Score Visualization** | Animated circular indicator showing trust percentage              |
 | 📜  |     **Explanation Panel**     | Shows exactly why a site was rated Safe / Suspicious / Scam       |
+| 🔒  | **Google Safe Browsing API**  | Real-time lookup of known phishing/malware URLs                   |
 | 📢  |  **Crowdsourced Reporting**   | Users can report suspicious sites to strengthen the system        |
 | 🧩  |    **Full-Stack Backend**     | Node.js API with MongoDB database to handle reports and site data |
 
@@ -78,6 +81,7 @@ It uses **real technical signals** like SSL certificates, domain age, suspicious
 | **MongoDB + Mongoose**             | Database to store site reports, domain metadata |
 | **Axios**                          | API communication with backend and WhoisXML     |
 | **WhoisXML API**                   | Checking domain registration age                |
+| **Google Safe Browsing API**       | Real-time threat lookup for URLs                |
 | **Frontend (HTML/CSS/JavaScript)** | Extension popup and dashboard UI                |
 | **(Future) Next.js**               | Public web dashboard (optional)                 |
 
@@ -109,6 +113,12 @@ The trustScore starts at **100** and is dynamically adjusted based on the follow
    - ✅ `trustScore ≥ 80` → **Safe**
    - ⚠️ `trustScore < 80 and ≥ 50` → **Suspicious**
    - ❌ `trustScore < 50` → **Scam**
+
+> **Rating Guide:**
+>
+> - **Safe:** No major red flags—SSL valid, established domain, no reports, AND not flagged by Google Safe Browsing.
+> - **Suspicious:** Minor concerns (young domain, or one warning) but not outright malicious.
+> - **Scam:** Significant issues (multiple reports, or any Google Safe Browsing flag).
 
 ✅ TrustScore and Explanation are both displayed to the user for full transparency.
 
