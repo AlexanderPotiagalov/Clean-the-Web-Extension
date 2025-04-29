@@ -186,10 +186,14 @@ router.get("/checkSite", async (req, res) => {
     const isUnsafe = await checkSafeBrowsing(urlToCheck);
     if (isUnsafe) {
       trustScore = 0;
-      reasons.push("Flagged by Google Safe Browsing (–100)");
+      reasons.push("Flagged by Google Safe Browsing");
     }
 
     trustScore = Math.max(0, trustScore); // Don't allow negative trust score
+
+    if (reasons.length === 0) {
+      reasons.push("No issues detected");
+    }
 
     let status = "Safe";
     if (trustScore < 80) status = "Suspicious";

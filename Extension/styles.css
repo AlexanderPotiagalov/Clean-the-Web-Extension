@@ -337,3 +337,8 @@ body {
 .status-text.unknown-color::before {
   margin-right: 6px;
 }
+
+#reasons-list {
+  padding-left: 6px;
+  text-align: center;
+}
